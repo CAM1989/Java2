@@ -1,0 +1,87 @@
+package ru.geekbrainsCAM.lesson3;
+
+import java.util.Random;
+import java.util.Scanner;
+
+//    Написать программу, которая загадывает случайное число от 0 до 9 и пользователю дается 3 попытки угадать это число.
+//    При каждой попытке компьютер должен сообщить, больше ли указанное пользователем число, чем загаданное, или меньше.
+//    После победы или проигрыша выводится запрос – «Повторить игру еще раз? 1 – да / 0 – нет»(1 – повторить, 0 – нет).
+
+public class ThreeApp {
+    static Scanner sc = new Scanner(System.in);
+    static Random rand = new Random();
+    static int a = randomNumber();
+    static int maxCount = 3;
+
+    public static void main(String[] args) {
+
+        System.out.println("Игра: Компьютер загадывает случайное число от 0 до 9 и пользователю дается " + maxCount + " попытки угадать это число.");
+        gameNumber();
+        repeat();
+        sc.close();
+    }
+
+    public static void repeat() {
+        int rep;
+        do {
+            System.out.println("\nПовторить игру еще раз? 1 – да / 0 – нет");
+            rep = sc.nextInt();
+            switch (rep) {
+                case 0:
+                    System.out.println("До встречи!");
+                    break;
+                case 1:
+                    a = randomNumber();
+                    gameNumber();
+                    break;
+            }
+        } while (rep != 0);
+
+    }
+
+    public static void gameNumber() {
+        for (int i = 0; i <= maxCount; i++) {
+            if (i != maxCount) {
+                System.out.println("\nПопытка № " + (i + 1)  + "\nВведите число в пределах от 0 до 9");
+                int b = getNumber();
+                if (a == b) {
+                    System.out.println("Вы выиграли! С " + (i + 1) + " попытки");
+                    break;
+                } else if (a < b) {
+                    System.out.println("Введите число меньше. Осталось попыток: " + (maxCount - (i + 1)));
+                } else {
+                    System.out.println("Введите число больше. Осталось попыток: " + (maxCount- (i + 1)));
+                }
+            }
+            else
+                System.out.println("\nВы проиграли! Загаданное число: " + a);
+        }
+    }
+
+    public static int randomNumber() {
+        return rand.nextInt(10);
+    }
+
+    public static int getNumber() {
+        int b;
+        do {
+            b = sc.nextInt();
+        } while (b < 0 || b > 9);
+        return b;
+    }
+}
+
+//            * Создать массив из слов
+//    String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi",
+//    "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"}.
+//            При запуске программы компьютер загадывает слово, запрашивает ответ у пользователя, сравнивает его с загаданным словом и сообщает, правильно ли ответил пользователь.
+//            Если слово не угадано, компьютер показывает буквы, которые стоят на своих местах.
+//            Написать программу, которая загадывает случайное число от 0 до 9 и пользователю дается 3 попытки угадать это число.
+//            При каждой попытке компьютер должен сообщить, больше ли указанное пользователем число, чем загаданное, или меньше.
+//            После победы или проигрыша выводится запрос – «Повторить игру еще раз? 1 – да / 0 – нет»(1 – повторить, 0 – нет).
+//            * Создать массив из слов
+//    String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli", "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi",
+//    "mango", "mushroom", "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"}.
+//            При запуске программы компьютер загадывает слово, запрашивает ответ у пользователя, сравнивает его с загаданным словом и сообщает, правильно ли ответил пользователь.
+//            Если слово не угадано, компьютер показывает буквы, которые стоят на своих местах.
+
