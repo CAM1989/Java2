@@ -1,0 +1,234 @@
+package ru.gbCAM.lesson6;
+
+import ru.gbCAM.lesson6.animals.*;
+
+//Создать классы Собака и Кот с наследованием от класса Животное.
+//Все животные могут бежать и плыть. В качестве параметра каждому методу передается длина препятствия. Результатом выполнения действия будет печать в консоль. (Например, dogBobik.run(150); -> 'Бобик пробежал 150 м.');
+//У каждого животного есть ограничения на действия (бег: кот 200 м., собака 500 м.; плавание: кот не умеет плавать, собака 10 м.).
+//* Добавить подсчет созданных котов, собак и животных.
+
+
+public class MainApp {
+    public static void main(String[] args) {
+        Cat cat1 = new Cat("Барсик", "Рыжий", 3);
+        Dog dog1 = new Dog("Бобик", "Черный", 2);
+        Chiken chiken1 = new Chiken("Кока", "Серая", 2);
+        Horse horse1 = new Horse("Боксер", "Белый", 5);
+
+        cat1.info();
+        dog1.info();
+        chiken1.info();
+        horse1.info();
+
+        cat1.voice();
+        dog1.voice();
+        chiken1.voice();
+        horse1.voice();
+
+        cat1.run(250);
+        cat1.run(200);
+        dog1.run(550);
+        dog1.run(150);
+        chiken1.run(10);
+        horse1.run(200);
+
+        cat1.swim(-1);
+        cat1.swim(0);
+        dog1.swim(10);
+        chiken1.swim(15);
+        horse1.swim(20);
+    }
+}
+
+
+package ru.gbCAM.lesson6.animals;
+
+public abstract class Animal {
+    String name;
+    String color;
+    int age;
+    int enr = 2;
+    int ens = 2;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if (age >= 0) {
+            this.age = age;
+        } else {
+            System.out.println("Введен некорректный возраст!");
+        }
+    }
+
+    public int getEnr() {
+        return enr;
+    }
+
+    public void setEnr(int enr) {
+        if (enr <= this.enr && enr > 0) {
+            this.enr = enr;
+        } else if (enr > this.enr) {
+            System.out.println("Слишком большое расстояние, могу только " + this.enr);
+        } else
+            System.out.println("Введено некорректное расстояние!");
+    }
+
+    public int getEns() {
+        return ens;
+    }
+
+    public void setEns(int ens) {
+        if (ens <= this.ens && ens > 0) {
+            this.ens = ens;
+        } else if (ens > this.ens) {
+            System.out.println("Слишком большое расстояние, могу только " + this.ens);
+        } else
+            System.out.println("Введено некорректное расстояние!");
+    }
+
+    public void run(int a) {
+        if (a > enr) {
+            System.out.println(name + " не смогу пробежать " + a + " м");
+        } else if (a <= enr && a > 0) {
+            System.out.println(name + " пробежал " + a + " м");
+        } else if (a < 0) {
+            System.out.println("Некорректно указана длина");
+        }
+    }
+
+    public void swim(int a) {
+        if (a > ens) {
+            System.out.println(name + " не смогу проплыть " + a + " м");
+        } else if (a <= ens && a > 0) {
+            System.out.println(name + " проплыл " + a + " м");
+        } else if (a < 0) {
+            System.out.println("Некорректно указана длина");
+        }
+    }
+
+    public abstract void info();
+
+    public abstract void voice();
+
+}
+
+
+package ru.gbCAM.lesson6.animals;
+
+import java.util.Scanner;
+
+public class Cat extends Animal {
+
+    public Cat(String name, String color, int age) {
+        this.name = name;
+        this.color = color;
+        this.age = age;
+        this.enr = 200;
+    }
+
+    @Override
+    public void info() {
+        System.out.printf("Кот - Имя: %s, Цвет: %s, Возраст %d\n", name, color, age);
+    }
+
+    @Override
+    public void voice() {
+        System.out.println(name + ": мяу-мяу-мяу");
+    }
+
+    @Override
+    public void swim(int a) {
+        if (a >= 0) {
+            int X;
+            Scanner sc = new Scanner(System.in);
+            do {
+                System.out.println(name + " не умеет плавать! Хотите отправить его в плавание? 1-Да, 0-Нет");
+
+                X = sc.nextInt();
+
+                if (X == 1) {
+                    System.out.println(name + " утонул =(");
+                    break;
+                }
+                if (X == 0)
+                    break;
+            } while (X != 0);
+            sc.close();
+        } else System.out.println("Некорректно указана длина");
+    }
+}
+
+
+package ru.gbCAM.lesson6.animals;
+
+public class Dog extends Animal {
+
+    public Dog(String name, String color, int age) {
+        this.name = name;
+        this.color = color;
+        this.age = age;
+        this.enr = 500;
+        this.ens = 10;
+    }
+
+    @Override
+    public void info() {
+        System.out.printf("Собака - Имя: %s, Цвет: %s, Возраст %d\n", name, color, age);
+    }
+
+    @Override
+    public void voice() {
+        System.out.println(name + ": гав-гав-гав");
+    }
+
+}
+
+package ru.gbCAM.lesson6.animals;
+
+public class Chiken extends Animal {
+
+    public Chiken(String name, String color, int age) {
+        this.name = name;
+        this.color = color;
+        this.age = age;
+    }
+
+    @Override
+    public void info() {
+        System.out.printf("Курица - Имя: %s, Цвет: %s, Возраст %d\n", name, color, age);
+    }
+
+    @Override
+    public void voice() {
+        System.out.println(name + ": ку-ка-ра-ча");
+    }
+}
+
+package ru.gbCAM.lesson6.animals;
+
+public class Horse extends Animal {
+
+    public Horse(String name, String color, int age) {
+        this.name = name;
+        this.color = color;
+        this.age = age;
+    }
+
+    @Override
+    public void info() {
+        System.out.printf("Конь - Имя: %s, Цвет: %s, Возраст %d\n", name, color, age);
+    }
+
+    @Override
+    public void voice() {
+        System.out.println(name + ": фыр-фыр-фыр");
+    }
+}
+
+
+
+
+
+
