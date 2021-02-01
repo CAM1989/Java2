@@ -1,0 +1,43 @@
+package ru.gbCAM.lesson6;
+
+import ru.gbCAM.lesson6.animals.*;
+
+//Создать классы Собака и Кот с наследованием от класса Животное.
+//Все животные могут бежать и плыть. В качестве параметра каждому методу передается длина препятствия. Результатом выполнения действия будет печать в консоль. (Например, dogBobik.run(150); -> 'Бобик пробежал 150 м.');
+//У каждого животного есть ограничения на действия (бег: кот 200 м., собака 500 м.; плавание: кот не умеет плавать, собака 10 м.).
+//* Добавить подсчет созданных котов, собак и животных.
+
+
+public class MainApp {
+    public static void main(String[] args) {
+        Cat cat1 = new Cat("Барсик", "Рыжий", 3);
+        Dog dog1 = new Dog("Бобик", "Черный", 2);
+        Chiken chiken1 = new Chiken("Кока", "Серая", 2);
+        Horse horse1 = new Horse("Боксер", "Белый", 5);
+
+        cat1.info();
+        dog1.info();
+        chiken1.info();
+        horse1.info();
+
+        cat1.voice();
+        dog1.voice();
+        chiken1.voice();
+        horse1.voice();
+
+        cat1.run(250);
+        cat1.run(200);
+        dog1.run(550);
+        dog1.run(150);
+        chiken1.run(10);
+        horse1.run(200);
+
+        cat1.swim(-1);
+        cat1.swim(0);
+        dog1.swim(10);
+        chiken1.swim(15);
+        horse1.swim(20);
+    }
+}
+
+
